@@ -248,6 +248,7 @@ class StructOptimizer:
         crystal_feas_save_path: str | None = None,
         verbose: bool = True,
         assign_magmoms: bool = True,
+        filter_mask: list | = None
         **kwargs,
     ) -> dict[str, Structure | TrajectoryObserver]:
         """Relax the Structure/Atoms until maximum force is smaller than fmax.
@@ -312,9 +313,7 @@ class StructOptimizer:
                 cry_obs = CrystalFeasObserver(atoms)
             
             if relax_cell:
-                if "filter_mask" not in kwargs:
-                    kwargs["filter_mask"] == None
-                atoms = ase_filter(atoms, kwargs["filter_mask"])
+                atoms = ase_filter(atoms, filter_mask)
             optimizer: Optimizer = self.optimizer_class(atoms, **kwargs)
             optimizer.attach(obs, interval=loginterval)
 

@@ -248,7 +248,7 @@ class StructOptimizer:
         crystal_feas_save_path: str | None = None,
         verbose: bool = True,
         assign_magmoms: bool = True,
-        filter_mask: list | = None
+        filter_mask: list | None = None,
         **kwargs,
     ) -> dict[str, Structure | TrajectoryObserver]:
         """Relax the Structure/Atoms until maximum force is smaller than fmax.

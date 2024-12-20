@@ -310,9 +310,11 @@ class StructOptimizer:
 
             if crystal_feas_save_path:
                 cry_obs = CrystalFeasObserver(atoms)
-
+            
             if relax_cell:
-                atoms = ase_filter(atoms)
+                if "filter_mask" not in kwargs:
+                    kwargs["filter_mask"] == None
+                atoms = ase_filter(atoms, kwargs["filter_mask"])
             optimizer: Optimizer = self.optimizer_class(atoms, **kwargs)
             optimizer.attach(obs, interval=loginterval)
 
